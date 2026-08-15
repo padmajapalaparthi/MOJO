@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', sans-serif;
+  
+  /* Premium Dark Theme Palette */
+  --color-mojito-bg: #0a0a0a;
+  --color-mojito-bg-light: #171717;
+  --color-mojito-bg-glass: rgba(23, 23, 23, 0.7);
+  
+  --color-mojito-primary: #eab308; /* Premium Gold/Amber */
+  --color-mojito-primary-hover: #ca8a04;
+  
+  --color-mojito-text: #f5f5f5;
+  --color-mojito-text-muted: #a3a3a3;
+  
+  --color-mojito-border: #262626;
+}
+
+@layer base {
+  body {
+    @apply bg-mojito-bg text-mojito-text font-sans antialiased;
+  }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a; 
+}
+::-webkit-scrollbar-thumb {
+  background: #262626; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040; 
+}
