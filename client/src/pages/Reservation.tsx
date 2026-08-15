@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { CalendarDays, Clock, Users, ArrowRight, Check, Plus, Package, CreditCard, User, Phone } from 'lucide-react';
+import { CalendarDays, Clock, Users, ArrowRight, Check, Plus, CreditCard, User, Phone } from 'lucide-react';
 import api from '../api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Reservation = () => {
   const [view, setView] = useState<'list' | 'form'>('list');
@@ -154,7 +154,7 @@ const Reservation = () => {
             </div>
 
             <div className="grid gap-6">
-              {reservations.map((res: any, idx: number) => (
+              {reservations.map((res: any) => (
                 <div key={res._id} className="bg-mojito-bg-light/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-mojito-border flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
