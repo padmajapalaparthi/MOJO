@@ -27,7 +27,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await api.post('/api/users', formData);
+      const res = await api.post('/api/auth/register', formData);
       
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify({
@@ -48,7 +48,7 @@ const Signup = () => {
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
-      const res = await api.post('/api/users/google', { token: credentialResponse.credential });
+      const res = await api.post('/api/auth/google', { token: credentialResponse.credential });
       
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify({
@@ -177,7 +177,6 @@ const Signup = () => {
                   onError={() => toast.error('Google Sign-In failed')}
                   theme="filled_black"
                   shape="pill"
-                  width="100%"
                 />
               </div>
             </div>
