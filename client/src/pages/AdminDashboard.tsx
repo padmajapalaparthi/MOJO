@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShoppingBag, CalendarDays, TrendingUp, DollarSign } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import { motion } from 'framer-motion';
 
 const AdminDashboard = () => {
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.get('http://localhost:5000/api/dashboard/stats', {
+        const { data } = await api.get('/api/dashboard/stats', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStats(data);

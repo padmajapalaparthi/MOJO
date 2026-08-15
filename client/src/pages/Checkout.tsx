@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Trash2, CreditCard, ChevronRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,7 +28,7 @@ const Checkout = () => {
 
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/orders', {
+      await api.post('/api/orders', {
         orderItems: cartItems,
         specialInstructions
       }, {

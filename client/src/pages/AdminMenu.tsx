@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Search, X } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -38,7 +38,7 @@ const AdminMenu = () => {
 
   const fetchItems = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/menu');
+      const { data } = await api.get('/api/menu');
       setItems(data);
     } catch (error) {
       toast.error('Failed to load menu items');
@@ -85,7 +85,7 @@ const AdminMenu = () => {
     if (!window.confirm('Are you sure you want to delete this menu item?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/menu/${id}`, {
+      await api.delete(`/api/menu/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Item deleted successfully');
@@ -113,7 +113,7 @@ const AdminMenu = () => {
         const uploadData = new FormData();
         uploadData.append('image', imageFile);
 
-        const uploadRes = await axios.post('http://localhost:5000/api/upload', uploadData, {
+        const uploadRes = await api.post('/api/upload', uploadData, {
           headers: {
             ...config.headers,
             'Content-Type': 'multipart/form-data',
@@ -130,10 +130,10 @@ const AdminMenu = () => {
       };
 
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/menu/${editingId}`, newItem, config);
+        await api.put(`/api/menu/${editingId}`, newItem, config);
         toast.success('Menu item updated successfully');
       } else {
-        await axios.post('http://localhost:5000/api/menu', newItem, config);
+        await api.post('/api/menu', newItem, config);
         toast.success('Menu item added successfully');
       }
       

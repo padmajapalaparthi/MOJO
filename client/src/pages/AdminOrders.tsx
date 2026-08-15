@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Clock, ChefHat, Truck, CheckCircle2, ChevronRight, X, User } from 'lucide-react';
 import clsx from 'clsx';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,7 +12,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('http://localhost:5000/api/orders', {
+      const { data } = await api.get('/api/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(data);
@@ -33,7 +33,7 @@ const AdminOrders = () => {
   const updateStatus = async (orderId: string, newStatus: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/status`, { status: newStatus }, {
+      await api.put(`/api/orders/${orderId}/status`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(orders.map(o => o._id === orderId ? { ...o, status: newStatus } : o));

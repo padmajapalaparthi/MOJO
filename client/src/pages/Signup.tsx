@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Utensils } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
@@ -26,7 +26,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/users', formData);
+      const res = await api.post('/api/users', formData);
       
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify({

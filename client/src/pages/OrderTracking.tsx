@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Clock, ChefHat, Truck, CheckCircle2, Receipt, Printer, X, Package, ArrowLeft, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -20,7 +20,7 @@ const OrderTracking = () => {
         return;
       }
       
-      const { data } = await axios.get('http://localhost:5000/api/orders/myorders', {
+      const { data } = await api.get('/api/orders/myorders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       

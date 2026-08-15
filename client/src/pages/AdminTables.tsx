@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Users } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
@@ -14,7 +14,7 @@ const AdminTables = () => {
   const fetchTables = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('http://localhost:5000/api/tables', {
+      const { data } = await api.get('/api/tables', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTables(data);
@@ -36,7 +36,7 @@ const AdminTables = () => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.post('http://localhost:5000/api/tables', newTable, {
+      const { data } = await api.post('/api/tables', newTable, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTables([...tables, data]);
@@ -54,7 +54,7 @@ const AdminTables = () => {
     
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/tables/${id}`, {
+      await api.delete(`/api/tables/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTables(tables.filter(t => t._id !== id));

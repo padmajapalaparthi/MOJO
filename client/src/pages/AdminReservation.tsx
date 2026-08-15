@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, CalendarDays, Clock, Users, Check, X } from 'lucide-react';
 import clsx from 'clsx';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
@@ -14,7 +14,7 @@ const AdminReservation = () => {
   const fetchReservations = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('http://localhost:5000/api/reservations', {
+      const { data } = await api.get('/api/reservations', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReservations(data);
@@ -35,7 +35,7 @@ const AdminReservation = () => {
   const updateStatus = async (reservationId: string, newStatus: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/reservations/${reservationId}/status`, { status: newStatus }, {
+      await api.put(`/api/reservations/${reservationId}/status`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReservations(reservations.map(r => r._id === reservationId ? { ...r, status: newStatus } : r));

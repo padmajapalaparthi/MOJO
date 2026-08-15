@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Info, Plus } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import clsx from 'clsx';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +18,7 @@ const CustomerMenu = () => {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/menu');
+        const { data } = await api.get('/api/menu');
         setMenuItems(data.filter((item: any) => item.isAvailable));
       } catch (error) {
         console.error('Failed to fetch menu items:', error);

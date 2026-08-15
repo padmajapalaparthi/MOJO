@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CalendarDays, Clock, Users, ArrowRight, Check, Plus, Package, CreditCard, User, Phone } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
@@ -35,7 +35,7 @@ const Reservation = () => {
         return;
       }
       
-      const { data } = await axios.get('http://localhost:5000/api/reservations/myreservations', {
+      const { data } = await api.get('/api/reservations/myreservations', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReservations(data);
@@ -59,7 +59,7 @@ const Reservation = () => {
 
     setIsLoading(true);
     try {
-      const { data } = await axios.post('http://localhost:5000/api/tables/available', {
+      const { data } = await api.post('/api/tables/available', {
         date: formData.date,
         time: formData.time,
         partySize: Number(formData.partySize)
@@ -86,7 +86,7 @@ const Reservation = () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/reservations', {
+      await api.post('/api/reservations', {
         table: selectedTable,
         date: formData.date,
         time: formData.time,
