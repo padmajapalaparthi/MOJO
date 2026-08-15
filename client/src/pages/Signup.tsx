@@ -4,6 +4,7 @@ import { Utensils } from 'lucide-react';
 import api from '../api';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +43,25 @@ const Signup = () => {
       toast.error(error.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      const res = await api.post('/api/users/google', { token: credentialResponse.credential });
+      
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify({
+        id: res.data._id,
+        name: res.data.name,
+        email: res.data.email,
+        role: res.data.role
+      }));
+
+      toast.success('Account created successfully with Google!');
+      navigate('/menu');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Google registration failed');
     }
   };
 
@@ -140,6 +160,27 @@ const Signup = () => {
                 </button>
               </div>
             </form>
+
+            <div className="mt-8 flex flex-col gap-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-mojito-border/50"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="bg-mojito-bg px-4 font-bold tracking-widest uppercase text-mojito-text-muted text-xs">Or continue with</span>
+                </div>
+              </div>
+
+              <div className="flex justify-center w-full *:w-full">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => toast.error('Google Sign-In failed')}
+                  theme="filled_black"
+                  shape="pill"
+                  width="100%"
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
