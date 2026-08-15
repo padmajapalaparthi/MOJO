@@ -38,7 +38,7 @@ const Signup = () => {
       }));
 
       toast.success('Account created successfully!');
-      navigate('/menu');
+      navigate('/');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Registration failed');
     } finally {
@@ -59,7 +59,7 @@ const Signup = () => {
       }));
 
       toast.success('Account created successfully with Google!');
-      navigate('/menu');
+      navigate('/');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Google registration failed');
     }

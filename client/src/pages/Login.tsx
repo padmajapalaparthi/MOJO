@@ -41,7 +41,7 @@ const Login = () => {
       if (res.data.role === 'admin') {
         navigate('/admin');
       } else {
-        navigate('/menu');
+        navigate('/');
       }
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed');
@@ -67,7 +67,7 @@ const Login = () => {
       if (res.data.role === 'admin') {
         navigate('/admin');
       } else {
-        navigate('/menu');
+        navigate('/');
       }
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Google login failed');
